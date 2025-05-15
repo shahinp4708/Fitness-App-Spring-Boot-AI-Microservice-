@@ -19,11 +19,11 @@ public class UserService {
         user.setEmail(registerRequest.getEmail());
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName((registerRequest.getLastName()));
-        user.setPassword(user.getPassword());
+        user.setPassword(registerRequest.getPassword());
 
         User savedUser = userRepository.save(user);
         UserResponse userResponse= new UserResponse();
-        userResponse.setId(savedUser.getId());
+        userResponse.setId(savedUser.getUserId());
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName((savedUser.getLastName()));
@@ -38,7 +38,7 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("user not found"));
         UserResponse userResponse= new UserResponse();
-        userResponse.setId(user.getId());
+        userResponse.setId(user.getUserId());
         userResponse.setEmail(user.getEmail());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName((user.getLastName()));
@@ -47,5 +47,9 @@ public class UserService {
         userResponse.setUpdatedAt(user.getUpdatedAt());
 
         return userResponse;
+    }
+
+    public Boolean existsByUserId(String userId) {
+        return userRepository.existsById(userId);
     }
 }

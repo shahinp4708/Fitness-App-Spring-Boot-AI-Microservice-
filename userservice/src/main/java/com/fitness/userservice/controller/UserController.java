@@ -19,7 +19,12 @@ public class UserController {
     }
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest registerRequest){
+        System.out.println("PASSWORD RECEIVED: " + registerRequest.getPassword());
         return ResponseEntity.ok(userService.register(registerRequest));
 
+    }
+    @GetMapping("/{userId}/validate")
+    public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
+        return ResponseEntity.ok(userService.existsByUserId(userId));
     }
 }
