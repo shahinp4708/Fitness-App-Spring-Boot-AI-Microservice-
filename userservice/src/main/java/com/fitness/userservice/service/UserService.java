@@ -19,7 +19,7 @@ public class UserService {
         user.setEmail(registerRequest.getEmail());
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName((registerRequest.getLastName()));
-        user.setPassword(user.getPassword());
+        user.setPassword(registerRequest.getPassword());
 
         User savedUser = userRepository.save(user);
         UserResponse userResponse= new UserResponse();
@@ -47,5 +47,9 @@ public class UserService {
         userResponse.setUpdatedAt(user.getUpdatedAt());
 
         return userResponse;
+    }
+
+    public Boolean existsByUserId(String userId) {
+        return userRepository.existsById(userId);
     }
 }

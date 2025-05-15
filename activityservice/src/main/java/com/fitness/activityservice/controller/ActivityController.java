@@ -15,7 +15,7 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
-    @PostMapping("/trackactivity")
+    @PostMapping
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest activityRequest){
         return ResponseEntity.ok(activityService.trackActivity(activityRequest));
 
@@ -25,7 +25,7 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.getUserActivities(userId));
 
     }
-    @GetMapping("/{activityId")
+    @GetMapping("/{activityId}")
     public ResponseEntity<ActivityResponse> getActivity(@PathVariable String activityId){
         return ResponseEntity.ok(activityService.getActivityById(activityId));
 

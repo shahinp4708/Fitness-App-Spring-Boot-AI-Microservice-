@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Spring Boot AI Microservice Project.iml" filepath="$PROJECT_DIR$/.idea/Spring Boot AI Microservice Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activityservice/activityservice/activityservice.iml" filepath="$PROJECT_DIR$/activityservice/activityservice/activityservice.iml" />
     </modules>
   </component>
 </project>

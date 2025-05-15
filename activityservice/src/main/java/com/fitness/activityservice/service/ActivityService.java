@@ -14,7 +14,13 @@ import java.util.stream.Collectors;
 public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private UserValidationService userValidationService;
     public ActivityResponse trackActivity(ActivityRequest activityRequest){
+
+        boolean isValidUser = userValidationService.validateUser(activityRequest.getUserId());
+        if(!isValidUser)
+            throw new RuntimeException("Invalid user"+activityRequest.getUserId());
         Activity activity = Activity.builder()
                 .userId(activityRequest.getUserId())
                 .type(activityRequest.getActivityType())
