@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 public class ActivityMessageListener {
 //    @Value("${app.rabbitmq.queue}")
 //    private String rabbitQueue;
+    private  final ActivityAiService activityAiService;
     @RabbitListener(queues ="${app.rabbitmq.queue}" )
     public  void processActivity(Activity activity){
-        log.info("recieved activity id is   : {}",activity.getId());
+        log.info("received activity id is   : {}",activity.getId());
+        log.info("generated recommendation : {}",activityAiService.generateRecommendation(activity));
     }
 }
