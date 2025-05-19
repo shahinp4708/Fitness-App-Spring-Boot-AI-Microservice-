@@ -19,8 +19,7 @@ public class ActivityMessageListener {
     private final RecommendationRepository recommendationRepository;
     @RabbitListener(queues ="${app.rabbitmq.queue}" )
     public  void processActivity(Activity activity){
-        log.info("received activity id is   : {}",activity.getId());
-        //log.info("generated recommendation : {}",activityAiService.generateRecommendation(activity));
+        log.info("From Rabbit Listener received activity id is   : {}",activity.getId());
         Recommendation recommendation = activityAiService.generateRecommendation(activity);
         recommendationRepository.save(recommendation);
 

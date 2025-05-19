@@ -15,7 +15,7 @@ public class UserValidationService {
     private final WebClient userServiceWebClient;
 
     public  boolean validateUser(String userId){
-        log.info("Received user id is " + userId);
+        log.info("Received user id for registering activity is " + userId);
         try {
             return Boolean.TRUE.equals(userServiceWebClient.get()
                     .uri("/api/users/{userId}/validate", userId)

@@ -30,6 +30,9 @@ public class ActivityService {
     private String routingKey;
 
     public ActivityResponse trackActivity(ActivityRequest activityRequest){
+        log.info("Activity received for registration to db");
+        log.info("Activity Type {}" ,activityRequest.getActivityType());
+
 
         boolean isValidUser = userValidationService.validateUser(activityRequest.getUserId());
         if(!isValidUser)
@@ -46,6 +49,7 @@ public class ActivityService {
         //publish to rabbitmq
         try{
             rabbitTemplate.convertAndSend(exchange,routingKey,savedActivity);
+            log.info("Successfully published activity to RabbitMQ");
 
         }catch (Exception e ){
             log.error("Failed to publish to rabbitMQ"+e);
