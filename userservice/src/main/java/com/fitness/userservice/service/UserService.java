@@ -13,10 +13,22 @@ public class UserService {
     private UserRepository userRepository;
     public UserResponse register(RegisterRequest registerRequest) {
         if(userRepository.existsByEmail(registerRequest.getEmail())){
-            throw new RuntimeException("email already used");
+            User existingUser = userRepository.findByEmail(registerRequest.getEmail());
+            UserResponse userResponse= new UserResponse();
+            userResponse.setId(existingUser.getUserId());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName((existingUser.getLastName()));
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+            return userResponse;
+
         }
         User user = new User();
         user.setEmail(registerRequest.getEmail());
+        user.setKeycloakId(registerRequest.getKeycloakId());
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName((registerRequest.getLastName()));
         user.setPassword(registerRequest.getPassword());
@@ -24,6 +36,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
         UserResponse userResponse= new UserResponse();
         userResponse.setId(savedUser.getUserId());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName((savedUser.getLastName()));
@@ -39,6 +52,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("user not found"));
         UserResponse userResponse= new UserResponse();
         userResponse.setId(user.getUserId());
+        userResponse.setKeycloakId(user.getKeycloakId());
         userResponse.setEmail(user.getEmail());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName((user.getLastName()));
@@ -49,7 +63,9 @@ public class UserService {
         return userResponse;
     }
 
-    public Boolean existsByUserId(String userId) {
-        return userRepository.existsById(userId);
-    }
+//    public Boolean existsByUserId(String userId) {
+//        return userRepository.existsById(userId);
+//    }
+
+    public Boolean existsByKeycloakId(String keycloakId) { return userRepository.existsByKeycloakId(keycloakId);}
 }
